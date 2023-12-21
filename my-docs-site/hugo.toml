@@ -1,16 +1,14 @@
 baseURL = 'http://example.org/'
 languageCode = 'en-us'
 title = 'My New Hugo Site'
-[params.docs]
-  extLinkNewTab   = false # Open external links in a new Tab? default true
+
 [module]
     # uncomment line below for temporary local development of module,
     # when using a 'theme' as a git submodule or git cloned files
-    replacements = "github.com/sebbycorp/lotusdocs -> lotusdocs"
+    replacements = "github.com/sebbycorp/demo3 -> demo3"
     [[module.imports]]
-        path = "github.com/sebbycorp/lotusdocs"
+        path = "github.com/sebbycorp/demo3"
         disable = false
     [[module.imports]]
         path = "github.com/gohugoio/hugo-mod-bootstrap-scss/v5"
         disable = false
-
