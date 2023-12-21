@@ -2,6 +2,8 @@ baseURL = 'http://example.org/'
 languageCode = 'en-us'
 title = 'My New Hugo Site'
 
+[params.docs]
+  extLinkNewTab   = false # Open external links in a new Tab? default true
 [module]
     # uncomment line below for temporary local development of module,
     # when using a 'theme' as a git submodule or git cloned files
