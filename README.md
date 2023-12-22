@@ -29,26 +29,11 @@ git clone --depth 1 https://github.com/maniak-academy/workshop-content-demo cont
 wget -O hugo.toml https://raw.githubusercontent.com/maniak-academy/workshop-toml/main/hugo.toml
 ```
 
+## run 
 
-Edit the hugo.toml configuration file to include the Lotus Docs theme and the Hugo Bootstrap module (lines 5 to 14 below):
-
-baseURL = 'http://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
-
-[module]
-    # uncomment line below for temporary local development of module,
-    # when using a 'theme' as a git submodule or git cloned files
-    replacements = "github.com/maniak-academy/workshop-theme  -> workshop-theme "
-    [[module.imports]]
-        path = "github.com/maniak-academy/workshop-theme 
-        disable = false
-    [[module.imports]]
-        path = "github.com/gohugoio/hugo-mod-bootstrap-scss/v5"
-        disable = false
-
-
-
+```
+hugo server -D
+```
 
 # training docs section 
         hugo new docs/.md
