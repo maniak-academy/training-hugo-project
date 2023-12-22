@@ -20,7 +20,7 @@ Now initialize your project as a Hugo Module using the hugo mod init command:
 hugo mod init demo4
 
 
-git clone https://github.com/maniak-academy/maniak-academy-theme themes/maniak-academy-theme
+git clone https://github.com/maniak-academy/workshop-theme themes/workshop-theme 
 
 
 Edit the hugo.toml configuration file to include the Lotus Docs theme and the Hugo Bootstrap module (lines 5 to 14 below):
@@ -32,9 +32,9 @@ title = 'My New Hugo Site'
 [module]
     # uncomment line below for temporary local development of module,
     # when using a 'theme' as a git submodule or git cloned files
-    replacements = "github.com/maniak-academy/maniak-academy-theme -> maniak-academy-theme"
+    replacements = "github.com/maniak-academy/workshop-theme  -> workshop-theme "
     [[module.imports]]
-        path = "github.com/maniak-academy/maniak-academy-theme"
+        path = "github.com/maniak-academy/workshop-theme 
         disable = false
     [[module.imports]]
         path = "github.com/gohugoio/hugo-mod-bootstrap-scss/v5"
