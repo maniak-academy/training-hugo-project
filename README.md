@@ -50,3 +50,9 @@ hugo new docs/Setup/Setup.md && sed -i 's/draft: true/draft: false/' Setup.md
 hugo new docs/Overview.md && sed -i 's/draft: true/draft: false/' Overview.md
 hugo new docs/Prerequisite.md && sed -i 's/draft: true/draft: false/' Prerequisite.md
 hugo new docs/Setup.md && sed -i 's/draft: true/draft: false/' Setup.md
+
+
+docker run -p 4200:4200 -e SIAB_PASSWORD=W3lcome098! -e SIAB_SUDO=true sspreitzer/shellinabox:latest
+
+
+https://github.com/sspreitzer/shellinabox-container-image
