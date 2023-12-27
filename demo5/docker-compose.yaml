@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  private-website-server:
+      image: hugomods/hugo:latest
+      container_name: private-website-server
+      restart: always
+      command: "hugo server"
+      ports:
+        - "1313:1313"
+      expose:
+        - 1313
+      volumes:
+         - .:/src
