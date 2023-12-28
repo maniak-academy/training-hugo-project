@@ -15,7 +15,7 @@ services:
       - "7681:7681"
     environment:
       - TINI_KILL_PROCESS_GROUP=1
-    volumes:
-      - /your/local/workspace:/workspace
+    # volumes:
+    #   - /your/local/workspace:/workspace
     entrypoint: ["/sbin/tini", "--"]
     command: ["ttyd", "-s", "3", "-t", "titleFixed=/bin/sh", "-t", "rendererType=webgl", "-t", "disableLeaveAlert=true", "/bin/sh", "-i", "-l"]
