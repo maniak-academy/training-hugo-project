@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   hugo:
-    image: maniak-hugo-image
+    image: sebbycorp/xademy-hugo-server:arm
     volumes:
       - .:/hugo
     ports:
