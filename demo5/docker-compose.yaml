@@ -8,3 +8,14 @@ services:
     ports:
       - "1313:1313"
     command: ["hugo", "server", "--bind", "0.0.0.0", "--watch"]
+
+  terminal-server:
+    image: sebbycorp/terminal-server:arm
+    ports:
+      - "7681:7681"
+    environment:
+      - TINI_KILL_PROCESS_GROUP=1
+    volumes:
+      - /your/local/workspace:/workspace
+    entrypoint: ["/sbin/tini", "--"]
+    command: ["ttyd", "-s", "3", "-t", "titleFixed=/bin/sh", "-t", "rendererType=webgl", "-t", "disableLeaveAlert=true", "/bin/sh", "-i", "-l"]
