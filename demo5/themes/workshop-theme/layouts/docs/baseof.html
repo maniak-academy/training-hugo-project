@@ -68,7 +68,8 @@
                                         </div>
                                     </div>
                                     <div class="code-server-frame">
-                                        <iframe src="http://127.0.0.1:7681/" width="100%" height="1000px"></iframe>
+                                        <iframe id="first-iframe" src="https://palmira.kiev.ua/" width="100%" height="1000px"></iframe>
+                                        <iframe id="second-iframe" src="https://getbootstrap.com/" width="100%" height="1000px"></iframe>
                                     </div>
                                 </div>
                                 
@@ -105,5 +106,46 @@
                 {{- partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "footer/flexsearch.html") . -}}
             {{ end }}
         {{ end }}
+
+
+        <script>
+            window.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("show-first").addEventListener("click", function () {
+                showIframe(1);
+            });
+
+            document.getElementById("show-second").addEventListener("click", function () {
+                showIframe(2);
+            });
+
+            window.addEventListener("load", function () {
+                var params = new URLSearchParams(window.location.search);
+                var pageParam = params.get("page");
+
+                if (pageParam === "first") {
+                showIframe(1);
+                } else if (pageParam === "second") {
+                showIframe(2);
+                } else {
+                showIframe(1);
+                }
+            });
+
+            let iframe1 = document.getElementById("first-iframe");
+            let iframe2 = document.getElementById("second-iframe");
+
+            function showIframe(iframeNumber) {
+                if (iframeNumber === 1) {
+                iframe1.style.display = "block";
+                iframe2.style.display = "none";
+                window.history.pushState({}, "", "?page=pageA");
+                } else if (iframeNumber === 2) {
+                iframe1.style.display = "none";
+                iframe2.style.display = "block";
+                window.history.pushState({}, "", "?page=pageB");
+                }
+            }
+            });
+         </script>
     </body>
 </html>
