@@ -1,5 +1,5 @@
 ---
-weight: 998
+weight: 20
 title: "Prerequisite"
 description: ""
 icon: "article"

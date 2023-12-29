@@ -1,5 +1,5 @@
 ---
-weight: 997
+weight: 10
 title: "Setup"
 description: ""
 icon: "article"
