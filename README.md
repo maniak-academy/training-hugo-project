@@ -1,8 +1,17 @@
 # training-hugo-project
 
-https://lotusdocs.dev/docs/overview/
+The following code builds a simple doc tutorial service that lets you build a training course for anything. It's based off of https://lotusdocs.dev with the addition of VSCode and a Terminal
 
+## Prerequists 
+* Docker / Docker desktop Installed
+* Git /Github access
 
+## Build in Docker
+The first we are need to do is fork the repo into your own repository.
+
+```
+
+```
 
 Build a new site
 
