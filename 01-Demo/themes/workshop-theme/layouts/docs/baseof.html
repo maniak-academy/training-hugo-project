@@ -23,7 +23,7 @@
                             {{- partialCached (printf "%s/%s" ($.Scratch.Get "pathName") "top-header.html") . -}}
                         {{ end }}
                             <div class="container-fluid">
-                                <div class="layout-spacing d-md-flex flex-md-row column gap-2">
+                                <div class="layout-spacing d-md-flex flex-md-row column column-gap-2">
                                     <div class="column col-md-5 col-12 flex-xl-nowrap">
                                         {{ $currentPage := . -}}
                                         {{ if site.Params.docs.breadcrumbs | default true }}
@@ -67,7 +67,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="code-server-frame flex-xl-nowrap col-12 col-md-7 my-4 my-md-0">
+                                    <div class="code-server-frame col-12 col-md-7 my-4 my-md-0" >
                                         <iframe id="first-iframe" src="http://localhost:1000" width="100%" height="1000px"></iframe>
                                         <iframe id="second-iframe" src="http://localhost:1001" width="100%" height="1000px"></iframe>
                                     </div>
