@@ -32,3 +32,6 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+.idea
+demo5/.hugo_build.lock
+.hugo_build.lock
