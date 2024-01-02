@@ -34,3 +34,4 @@ override.tf.json
 terraform.rc
 .idea
 demo5/.hugo_build.lock
+.hugo_build.lock
