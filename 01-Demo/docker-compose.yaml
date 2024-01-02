@@ -9,6 +9,11 @@ services:
       - "1313:1313"
     command: ["hugo", "server", "--bind", "0.0.0.0", "--watch"]
 
+  vs-code:
+    image: sebbycorp/xademy-vscode:latest
+    ports:
+      - "8080:8080"
+      
   terminal-server:
     image: sebbycorp/terminal-server:arm
     ports:
