@@ -1,58 +1,46 @@
 # training-hugo-project
 
-https://lotusdocs.dev/docs/overview/
+The following code builds a simple doc tutorial service that lets you build a training course for anything. It's based off of https://lotusdocs.dev with the addition of VSCode and a Terminal
 
+### Note Only works on ARM silicon right now ##
 
+## Prerequists 
+* Docker / Docker desktop Installed
+* Git /Github access
+* Fork the following repo https://github.com/maniak-academy/training-hugo-project.git
 
-Build a new site
+## Build in Docker
+If you have forked the repo then you can clone it into your own machine. 
 
-Create a New Lotus Docs Site 
-
-
-With Hugo installed, create a new Hugo project using the hugo new command:
 
 ```
-hugo new site demo5 && cd demo5
-
+git clone https://github.com/maniak-academy/training-hugo-project.git
 ```
 
-Now initialize your project as a Hugo Module using the hugo mod init command:
+Jump into the directory and take a look at the docker-compose.yaml file, this will run docker and deploy hugo server and run it with the content in your repo.
+
+It will deploy 
+1. Hugo Server port 1313
+2. TTYD Termainl Server 7681
+3. VSCode Server (coming soon)
+4. Quacaomole Server (coming soon)
+
+Exectue the following command to spin the docker up
 
 ```
-hugo mod init demo5
+docker-compose up -d 
 ```
 
-```
-git clone --depth 1 https://github.com/maniak-academy/workshop-theme themes/workshop-theme && rm -rf themes/workshop-theme/.git
-
-git clone --depth 1 https://github.com/maniak-academy/workshop-content-demo content/docs && rm -rf content/docs/.git 
-wget -O hugo.toml https://raw.githubusercontent.com/maniak-academy/workshop-toml/main/hugo.toml
-```
-
-## run 
+To shut it down run 
 
 ```
-hugo server -D
+docker-compose down
 ```
 
-# training docs section 
-        hugo new docs/.md
-
-hugo new docs/Start/_index.md
-hugo new docs/Start/Overview.md && sed -i 's/draft: true/draft: false/' Overview.md
-hugo new docs/Prerequisite/_index.md
-hugo new docs/Prerequisite/Prerequisite.md && sed -i 's/draft: true/draft: false/' Prerequisite.md
-hugo new docs/Setup/_index.md
-hugo new docs/Setup/Setup.md && sed -i 's/draft: true/draft: false/' Setup.md
+Now you can go to http://localhost:1313 or http://localhost:7681 and you are set
 
 
+## How to add content
 
-hugo new docs/Overview.md && sed -i 's/draft: true/draft: false/' Overview.md
-hugo new docs/Prerequisite.md && sed -i 's/draft: true/draft: false/' Prerequisite.md
-hugo new docs/Setup.md && sed -i 's/draft: true/draft: false/' Setup.md
+Add content using markup language in the content/docs folder.
 
-
-docker run -p 4200:4200 -e SIAB_PASSWORD=W3lcome098! -e SIAB_SUDO=true sspreitzer/shellinabox:latest
-
-
-https://github.com/sspreitzer/shellinabox-container-image
