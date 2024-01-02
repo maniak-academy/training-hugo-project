@@ -17,9 +17,9 @@
 }
 
 .docs-toc-mobile {
-    position: sticky;
+    // position: sticky;
     // top: 71px; // important (must be set)
-    top: 85px; // important (must be set)
+    // top: 85px; // important (must be set)
     padding-left: calc(var(--bs-gutter-x) * 1.05);
     padding-right: calc(var(--bs-gutter-x) * 1.05);
     z-index: 20;
@@ -75,10 +75,10 @@
 }
 
 .docs-toc {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 6rem;
-    height: calc(100vh - 11.1rem);
+    // position: -webkit-sticky;
+    // position: sticky;
+    // top: 6rem;
+    // height: calc(100vh - 11.1rem);
     overflow-y: auto;
     order: 2;
 

@@ -10129,8 +10129,6 @@ i.title-icon {
   --toc-mobile-link-hover-color: var(--primary-300); }
 
 .docs-toc-mobile {
-  position: sticky;
-  top: 85px;
   padding-left: calc(var(--bs-gutter-x) * 1.05);
   padding-right: calc(var(--bs-gutter-x) * 1.05);
   z-index: 20; }
@@ -10165,10 +10163,6 @@ i.title-icon {
         padding-left: 1rem; }
 
 .docs-toc {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 6rem;
-  height: calc(100vh - 11.1rem);
   overflow-y: auto;
   order: 2;
   scrollbar-width: thin;
