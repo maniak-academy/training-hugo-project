@@ -1,5 +1,5 @@
 ---
-weight: 999
+weight: 300
 title: "Doc Three"
 description: ""
 icon: "article"
