@@ -12,6 +12,9 @@ toc: true
 
 ## Create New Content
 
+
+ADDING things
+
 Navigate to the root of your Hugo project and use the `hugo new` command to create a file in the `content/docs` directory:
 
 ```shell
