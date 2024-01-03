@@ -86,7 +86,7 @@
                                         </div>
                                         {{ end }}
                                         <div class="mb-0 d-flex">
-                                            {{ if .Params.docs.titleIcon | default false }}
+                                            {{ if .Params.docs.titleIcon | default true }}
                                             <i class="material-icons title-icon me-2">{{- .Params.icon | default "article" }}</i>
                                             {{ end }}
                                             <h1 class="content-title mb-0">
