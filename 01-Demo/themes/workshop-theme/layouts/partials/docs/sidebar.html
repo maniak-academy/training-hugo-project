@@ -92,7 +92,7 @@
                     {{ else }}
                         {{ $active := in $currentPage.RelPermalink .RelPermalink }}
                         <li class="{{ if $active }}current{{ end }}">
-                            <a class="sidebar-root-link" href="{{ .Permalink }}">
+                            <a class="sidebar-root-link">
                                 {{ if eq .Site.Params.docs.sidebarIcons true -}}
                                     <i class="material-icons me-2">{{ .Params.icon }}</i>
                                 {{ end }}

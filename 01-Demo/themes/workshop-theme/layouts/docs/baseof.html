@@ -25,42 +25,45 @@
                             <div class="container-fluid">
                                 <div class="layout-spacing d-md-flex flex-md-row column column-gap-2">
 
+                                    <!-- output of all pages -->
                                     <div class="column col-md-5 col-12 flex-xl-nowrap">
                                         {{ range (where .Site.Pages "Section" "docs") }}
-                                            {{ range .Pages }}
+                                            {{ range $index, $page := .Pages }}
 
-                                            {{ if .Params.docs.breadcrumbs | default true }}
+                                            <div class="tab-content tab-content-{{ $index }}">
+
+                                            {{ if $page.Params.docs.breadcrumbs | default true }}
                                                 <div class="d-md-flex justify-content-between align-items-center">
                                                     {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "breadcrumbs.html") . -}}
                                                 </div>
                                             {{ end }}
-                                            {{ if .Params.docs.toc | default true }}
-                                            <div class="docs-toc col-xl-6 my-2 {{ if .IsNode }}visually-hidden{{ else }}{{end}} {{ if and (ne .Params.toc false) (ne .TableOfContents "<nav id=\"TableOfContents\"></nav>") }}{{ else }}visually-hidden{{ end }} {{ if site.Params.docs.toc | default true }}{{ else }}visually-hidden{{ end }} d-xl-block">
+                                            {{ if $page.Params.docs.toc | default true }}
+                                            <div class="docs-toc col-xl-6 my-2 {{ if .IsNode }}visually-hidden{{ else }}{{end}} {{ if and (ne $page.Params.toc false) (ne $page.TableOfContents "<nav id=\"TableOfContents\"></nav>") }}{{ else }}visually-hidden{{ end }} {{ if $page.Params.docs.toc | default true }}{{ else }}visually-hidden{{ end }} d-xl-block">
                                                 {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "toc.html") . -}}
                                             </div>
                                             {{ end }}
-                                            {{ if .Params.docs.tocMobile | default true }}
-                                            <div class="docs-toc-mobile {{ if .IsNode }}visually-hidden{{ else }}{{end}} {{ if and (ne .Params.toc false) (ne .TableOfContents "<nav id=\"TableOfContents\"></nav>") }}{{ else }}visually-hidden{{ end }} {{ if site.Params.docs.tocMobile | default true }}{{ else }}visually-hidden{{ end }} d-print-none d-xl-none">
+                                            {{ if $page.Params.docs.tocMobile | default true }}
+                                            <div class="docs-toc-mobile {{ if .IsNode }}visually-hidden{{ else }}{{end}} {{ if and (ne $page.Params.toc false) (ne $page.TableOfContents "<nav id=\"TableOfContents\"></nav>") }}{{ else }}visually-hidden{{ end }} {{ if $page.Params.docs.tocMobile | default true }}{{ else }}visually-hidden{{ end }} d-print-none d-xl-none">
                                                 <button id="toc-dropdown-btn" class="btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-offset="0,0" aria-expanded="false">
                                                     Table of Contents
                                                 </button>
                                                 {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "toc-mobile.html") . -}}
                                             </div>
                                             {{ end -}}
-                                            <div class="docs-content col-12 {{ if .IsNode }}{{ else }}{{ if .Params.docs.toc | default true }}{{ if and (ne .Params.toc false) (ne .TableOfContents "<nav id=\"TableOfContents\"></nav>") }}col-xl-12{{else}}{{end}}{{ else }}{{ end }}{{ end }} mt-0">
+                                            <div class="docs-content col-12 {{ if .IsNode }}{{ else }}{{ if $page.Params.docs.toc | default true }}{{ if and (ne $page.Params.toc false) (ne $page.TableOfContents "<nav id=\"TableOfContents\"></nav>") }}col-xl-12{{else}}{{end}}{{ else }}{{ end }}{{ end }} mt-0">
                                                 <div class="mb-0 d-flex">
-                                                    {{ if .Params.docs.titleIcon | default false }}
-                                                    <i class="material-icons title-icon me-2">{{- .Params.icon | default "article" }}</i>
+                                                    {{ if $page.Params.docs.titleIcon | default false }}
+                                                    <i class="material-icons title-icon me-2">{{- $page.Params.icon | default "article" }}</i>
                                                     {{ end }}
                                                     <h1 class="content-title mb-0">
-                                                        {{ .Title }}
-                                                        {{ if .Draft }}
+                                                        {{ $page.Title }}
+                                                        {{ if $page.Draft }}
                                                          <span class="badge bg-default fs-6 mb-1 align-middle">DRAFT</span>
                                                         {{ end }}
                                                     </h1>
                                             </div>
-                                                {{ if .Params.docs.descriptions | default false }}
-                                                    <p class="lead mb-3">{{ .Description | markdownify }}</p>
+                                                {{ if $page.Params.docs.descriptions | default false }}
+                                                    <p class="lead mb-3">{{ $page.Description | markdownify }}</p>
                                                 {{ end }}
                                                 <div id="content" class="main-content" {{ if eq .Site.Params.docs.toc true -}}data-bs-spy="scroll" data-bs-root-margin="0px 0px -65%" data-bs-target="#toc-mobile"{{ end }}>
                                                     {{ block "main" . }}
@@ -71,6 +74,7 @@
                                                     {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "doc-nav.html") . -}}
                                                 </div>
                                             </div>
+                                        </div>
                                         {{ end }}
                                         {{ end }}
                                     </div>
@@ -118,20 +122,24 @@
 
         <script>
             document.addEventListener("DOMContentLoaded", function() {
-                var tabs = document.querySelectorAll('.nav-link');
-                var tabContents = document.querySelectorAll('.tab-pane');
+                var tabs = document.querySelectorAll('.sidebar-root-link');
+                var tabContents = document.querySelectorAll('.tab-content');
+
+                console.log(tabs)
+                console.log(tabContents)
 
                 tabs.forEach(function(tab, index) {
-                    tab.addEventListener('click', function() {
+                    tab.addEventListener('click', function(e) {
+                        e.preventDefault()
                         tabs.forEach(function(t) {
                             t.classList.remove('active');
                         });
                         tab.classList.add('active');
 
                         tabContents.forEach(function(content) {
-                            content.classList.remove('show', 'active');
+                            content.classList.remove('active');
                         });
-                        tabContents[index].classList.add('show', 'active');
+                        tabContents[index].classList.add('active');
                     });
                 });
             });

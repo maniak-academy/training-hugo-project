@@ -10870,6 +10870,11 @@ table td:last-child, table th:last-child {
       line-height: 2;
       color: var(--text-default); }
 
+.tab-content {
+  display: none; }
+  .tab-content.active {
+    display: block; }
+
 :root {
   --feature-icon-color: var(--primary);
   --feature-icon-faint: var(--gray-200);
