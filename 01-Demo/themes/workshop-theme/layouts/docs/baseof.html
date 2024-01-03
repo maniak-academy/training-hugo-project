@@ -50,7 +50,7 @@
                                                 {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "toc-mobile.html") . -}}
                                             </div>
                                             {{ end -}}
-                                            
+
                                             <div class="docs-content col-12 {{ if .IsNode }}{{ else }}{{ if $page.Params.docs.toc | default true }}{{ if and (ne $page.Params.toc false) (ne $page.TableOfContents "<nav id=\"TableOfContents\"></nav>") }}col-xl-12{{else}}{{end}}{{ else }}{{ end }}{{ end }} mt-0">
                                                 <div class="mb-0 d-flex">
                                                     {{ if $page.Params.docs.titleIcon | default false }}
@@ -179,19 +179,27 @@
                 urlParams.set(key, value);
                 window.history.replaceState({}, '', window.location.pathname + '?' + urlParams);
             }
+
+            function deleteQueryParam(key) {
+                var url = new URL(window.location.href);
+                url.searchParams.delete(key);
+                window.history.replaceState({}, null, url.href);
+            }
             
-            document.addEventListener("DOMContentLoaded", function () {
+            window.addEventListener("DOMContentLoaded", function () {
+
             var tabs = document.querySelectorAll(".sidebar-root-link");
             var tabContents = document.querySelectorAll(".tab-content");
             var sidebarLi = document.querySelectorAll(".sidebar-menu li");
             var docNextBtns = document.querySelectorAll(".doc-next");
             var docPrevBtns = document.querySelectorAll(".doc-prev");
             var docsStarting = document.querySelector(".docs-starting");
-            var docsFeaturesCards = document.querySelectorAll('.features')
-            var tabContentWrapper = document.querySelector('.tab-content-wrapper')
+            var docsFeaturesCards = document.querySelectorAll('.features');
+            var tabContentWrapper = document.querySelector('.tab-content-wrapper');
+            var homeBreadcrumbBtns = document.querySelectorAll('.home-breadcrumb');
             
 
-            var currentIndex = 0;
+            var currentIndex;
 
             function updateTab(index) {
                 currentIndex = index;
@@ -235,6 +243,16 @@
                 });
             });
 
+            homeBreadcrumbBtns.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                console.log('here')
+                deleteQueryParam('index')
+                sidebarLi.forEach(li => li.classList.remove('current'))
+                tabs.forEach(tab => tab.classList.remove('active'))
+                showStartingTab()
+            })
+            })
+
             function hideStartingTab() {
                 tabContentWrapper.style.display = 'block'
                 docsStarting.style.display = "none";
@@ -247,12 +265,12 @@
 
             window.addEventListener('load', () => {
                 var indexParam = getQueryParam("index");
-            if (indexParam !== null) {
-                updateTab(+indexParam)
-                hideStartingTab();
-            } else {
-                showStartingTab();
-            }
+                if (indexParam !== null) {
+                    updateTab(+indexParam)
+                    hideStartingTab();
+                } else {
+                    showStartingTab();
+                }
             })
 
             window.addEventListener('reload', () => {
@@ -273,9 +291,8 @@
                     hideStartingTab();
                 });
             });
-
-
-        });        
+        });       
+    
 
             window.addEventListener("DOMContentLoaded", () => {
 
