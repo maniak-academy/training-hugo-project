@@ -50,6 +50,7 @@
                                                 {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "toc-mobile.html") . -}}
                                             </div>
                                             {{ end -}}
+                                            
                                             <div class="docs-content col-12 {{ if .IsNode }}{{ else }}{{ if $page.Params.docs.toc | default true }}{{ if and (ne $page.Params.toc false) (ne $page.TableOfContents "<nav id=\"TableOfContents\"></nav>") }}col-xl-12{{else}}{{end}}{{ else }}{{ end }}{{ end }} mt-0">
                                                 <div class="mb-0 d-flex">
                                                     {{ if $page.Params.docs.titleIcon | default false }}
@@ -67,8 +68,8 @@
                                                 {{ end }}
                                                 <div id="content" class="main-content" {{ if eq .Site.Params.docs.toc true -}}data-bs-spy="scroll" data-bs-root-margin="0px 0px -65%" data-bs-target="#toc-mobile"{{ end }}>
                                                     {{ block "main" . }}
-                                                    {{ .Content }}
                                                     {{ end }}
+                                                    {{ $page.Content }}
                                                 </div>
                                                 <div>
                                                     {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "doc-nav.html") . -}}
