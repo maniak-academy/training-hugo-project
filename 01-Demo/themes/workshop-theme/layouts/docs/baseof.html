@@ -26,7 +26,7 @@
                                 <div class="layout-spacing d-md-flex flex-md-row column column-gap-2">
 
                                     <!-- output of all pages -->
-                                    <div class="column col-md-5 col-12 flex-xl-nowrap">
+                                    <div class="tab-content-wrapper column col-md-5 col-12 flex-xl-nowrap">
                                         {{ range (where .Site.Pages "Section" "docs") }}
                                             {{ range $index, $page := .Pages }}
 
@@ -79,6 +79,29 @@
                                         {{ end }}
                                     </div>
 
+                                    <div class="docs-starting column col-md-5 col-12 ">
+                                        {{ range .Pages.ByWeight }}
+                                        <div id="list-item" class="col-md-6 col-12 mt-4 pt-2">
+                                            <a class="text-decoration-none text-reset">
+                                                <div class="card h-100 features feature-full-bg rounded p-4 position-relative overflow-hidden border-1">
+                                                    <span class="icon-color d-flex my-3">
+                                                        <i class="material-icons align-middle">{{- .Params.icon | default "article" }}</i>
+                                                        {{ if .Draft }}<span class="badge bg-default ms-2 fs-6 align-middle">DRAFT</span>{{ end }}
+                                                        {{ if .IsSection }}<i class="material-icons icon-faint align-middle ms-auto" title="Directory">folder</i>{{ end }}
+                                                    </span>
+                                                    <div class="card-body p-0 content">
+                                                        <p class="fs-5 fw-semibold card-title mb-1">{{ .Title }}</p>
+                                                        <p class="para card-text mb-0">{{ .Description | truncate (.Site.Params.docs.listDescTrunc | default 100) | markdownify }}</p>
+                                                    </div>
+                                                    <!-- <div class="position-absolute top-0 end-0">
+                                                        <i class="material-icons opacity-05">{{- .Params.icon }}</i>
+                                                    </div> -->
+                                                </div>
+                                            </a>
+                                        </div><!--end col-->
+                                        {{ end }}
+                                    </div>
+
                                     <div class="code-server-frame col-12 col-md-7 my-4 my-md-0" >
                                         <iframe id="first-iframe" src="http://localhost:8080" width="100%" height="1000px"></iframe>
                                         <iframe id="second-iframe" src="http://localhost:7681" width="100%" height="1000px"></iframe>
@@ -121,21 +144,37 @@
 
 
         <script>
+                function getQueryParam(key) {
+                var urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(key);
+            }
+
+            function setQueryParam(key, value) {
+                var urlParams = new URLSearchParams(window.location.search);
+                urlParams.set(key, value);
+                window.history.replaceState({}, '', window.location.pathname + '?' + urlParams);
+            }
+            
             document.addEventListener("DOMContentLoaded", function () {
             var tabs = document.querySelectorAll(".sidebar-root-link");
             var tabContents = document.querySelectorAll(".tab-content");
             var sidebarLi = document.querySelectorAll(".sidebar-menu li");
             var docNextBtns = document.querySelectorAll(".doc-next");
             var docPrevBtns = document.querySelectorAll(".doc-prev");
+            var docsStarting = document.querySelector(".docs-starting");
+            var docsFeaturesCards = document.querySelectorAll('.features')
+            var tabContentWrapper = document.querySelector('.tab-content-wrapper')
+            
 
             var currentIndex = 0;
 
-            (function () {
-                updateTab(0);
-            })();
+            // (function () {
+            //     updateTab(0);
+            // })();
 
             function updateTab(index) {
                 currentIndex = index;
+                setQueryParam('index', index)
                 tabs.forEach(function (tab) {
                 tab.classList.remove("active");
                 });
@@ -172,8 +211,36 @@
                 updateTab(index);
                 });
             });
-        });         
 
+            function hideStartingTab() {
+                tabContentWrapper.style.display = 'block'
+                docsStarting.style.display = "none";
+            }
+
+            function showStartingTab() {
+                tabContentWrapper.style.display = 'none';
+                docsStarting.style.display = "block";
+            }
+
+            var indexParam = getQueryParam("index");
+            if (indexParam !== null) {
+                updateTab(+indexParam)
+                hideStartingTab();
+            } else {
+                showStartingTab();
+            }
+
+            docsFeaturesCards.forEach(function(card, index) {
+                card.addEventListener('click', function(e) {
+                    setQueryParam("index", index);
+                    currentIndex = index;
+                    updateTab(currentIndex);
+                    hideStartingTab();
+                });
+            });
+
+
+        });        
 
             window.addEventListener("DOMContentLoaded", () => {
 
@@ -210,13 +277,13 @@
                   iframe2.style.display = "none";
                   terminalButton.classList.remove('btn-active')
                   vsCodeButton.classList.add('btn-active')
-                  window.history.pushState({}, "", "?page=pageA");
+                  setQueryParam("page", "pageA");
                 } else if (iframeNumber === 2) {
                   iframe1.style.display = "none";
                   iframe2.style.display = "block";
                   vsCodeButton.classList.remove('btn-active')
                   terminalButton.classList.add('btn-active')
-                  window.history.pushState({}, "", "?page=pageB");
+                setQueryParam("page", "pageA");
                 }
             }
             });
