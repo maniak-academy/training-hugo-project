@@ -79,33 +79,48 @@
                                         {{ end }}
                                     </div>
 
-                                    <div class="docs-starting column col-md-5 col-12 ">
+                                    <div class="docs-starting col-md-5 col-12 ">
                                         {{ if .Params.docs.breadcrumbs | default true }}
                                         <div class="d-md-flex justify-content-between align-items-center">
                                             {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "breadcrumbs.html") . -}}
                                         </div>
                                         {{ end }}
+                                        <div class="mb-0 d-flex">
+                                            {{ if .Params.docs.titleIcon | default false }}
+                                            <i class="material-icons title-icon me-2">{{- .Params.icon | default "article" }}</i>
+                                            {{ end }}
+                                            <h1 class="content-title mb-0">
+                                                {{ .Title }}
+                                                {{ if .Draft }}
+                                                 <span class="badge bg-default fs-6 mb-1 align-middle">DRAFT</span>
+                                                {{ end }}
+                                            </h1>
+                                        </div>
+
                     
-                                        {{ range .Pages.ByWeight }}
-                                        <div id="list-item" class="col-md-6 col-12 mt-4 pt-2">
-                                            <a class="text-decoration-none text-reset">
-                                                <div class="card h-100 features feature-full-bg rounded p-4 position-relative overflow-hidden border-1">
-                                                    <span class="icon-color d-flex my-3">
-                                                        <i class="material-icons align-middle">{{- .Params.icon | default "article" }}</i>
-                                                        {{ if .Draft }}<span class="badge bg-default ms-2 fs-6 align-middle">DRAFT</span>{{ end }}
-                                                        {{ if .IsSection }}<i class="material-icons icon-faint align-middle ms-auto" title="Directory">folder</i>{{ end }}
-                                                    </span>
-                                                    <div class="card-body p-0 content">
-                                                        <p class="fs-5 fw-semibold card-title mb-1">{{ .Title }}</p>
-                                                        <p class="para card-text mb-0">{{ .Description | truncate (.Site.Params.docs.listDescTrunc | default 100) | markdownify }}</p>
+                                        <div class="d-flex flex-wrap mt-4">
+                                            {{ range .Pages.ByWeight }}
+                                            <div id="list-item" class="col-md-6 col-12 ">
+                                                <a class="text-decoration-none text-reset">
+                                                    <div class="card h-100 features feature-full-bg rounded p-4 position-relative overflow-hidden border-1">
+                                                        <span class="icon-color d-flex my-3">
+                                                            <i class="material-icons align-middle">{{- .Params.icon | default "article" }}</i>
+                                                            {{ if .Draft }}<span class="badge bg-default ms-2 fs-6 align-middle">DRAFT</span>{{ end }}
+                                                            {{ if .IsSection }}<i class="material-icons icon-faint align-middle ms-auto" title="Directory">folder</i>{{ end }}
+                                                        </span>
+                                                        <div class="card-body p-0 content">
+                                                            <p class="fs-5 fw-semibold card-title mb-1">{{ .Title }}</p>
+                                                            <p class="para card-text mb-0">{{ .Description | truncate (.Site.Params.docs.listDescTrunc | default 100) | markdownify }}</p>
+                                                        </div>
+                                                        <!-- <div class="position-absolute top-0 end-0">
+                                                            <i class="material-icons opacity-05">{{- .Params.icon }}</i>
+                                                        </div> -->
                                                     </div>
-                                                    <!-- <div class="position-absolute top-0 end-0">
-                                                        <i class="material-icons opacity-05">{{- .Params.icon }}</i>
-                                                    </div> -->
-                                                </div>
-                                            </a>
-                                        </div><!--end col-->
-                                        {{ end }}
+                                                </a>
+                                            </div><!--end col-->
+                                            {{ end }}
+                                        </div>
+
                                         <div>
                                             {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "doc-nav.html") . -}}
                                         </div>
