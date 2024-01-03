@@ -121,28 +121,59 @@
 
 
         <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var tabs = document.querySelectorAll('.sidebar-root-link');
-                var tabContents = document.querySelectorAll('.tab-content');
+            document.addEventListener("DOMContentLoaded", function () {
+            var tabs = document.querySelectorAll(".sidebar-root-link");
+            var tabContents = document.querySelectorAll(".tab-content");
+            var sidebarLi = document.querySelectorAll(".sidebar-menu li");
+            var docNextBtns = document.querySelectorAll(".doc-next");
+            var docPrevBtns = document.querySelectorAll(".doc-prev");
 
-                console.log(tabs)
-                console.log(tabContents)
+            var currentIndex = 0;
 
-                tabs.forEach(function(tab, index) {
-                    tab.addEventListener('click', function(e) {
-                        e.preventDefault()
-                        tabs.forEach(function(t) {
-                            t.classList.remove('active');
-                        });
-                        tab.classList.add('active');
+            (function () {
+                updateTab(0);
+            })();
 
-                        tabContents.forEach(function(content) {
-                            content.classList.remove('active');
-                        });
-                        tabContents[index].classList.add('active');
-                    });
+            function updateTab(index) {
+                currentIndex = index;
+                tabs.forEach(function (tab) {
+                tab.classList.remove("active");
+                });
+                tabs[index].classList.add("active");
+                sidebarLi.forEach(function (li) {
+                li.classList.remove("current");
+                });
+                sidebarLi[index].classList.add("current");
+
+                tabContents.forEach(function (content) {
+                content.classList.remove("active");
+                });
+                tabContents[index].classList.add("active");
+            }
+
+            tabs.forEach(function (tab, index) {
+                tab.addEventListener("click", function (e) {
+                e.preventDefault();
+                currentIndex = index;
+                updateTab(currentIndex);
                 });
             });
+
+            docPrevBtns.forEach(function (docPrev) {
+                docPrev.addEventListener("click", function (e) {
+                index = currentIndex + 1;
+                updateTab(index);
+                });
+            });
+
+            docNextBtns.forEach(function (docNext) {
+                docNext.addEventListener("click", function (e) {
+                index = currentIndex - 1;
+                updateTab(index);
+                });
+            });
+            });
+
 
             window.addEventListener("DOMContentLoaded", () => {
 
