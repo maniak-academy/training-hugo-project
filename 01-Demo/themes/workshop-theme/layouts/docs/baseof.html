@@ -80,6 +80,12 @@
                                     </div>
 
                                     <div class="docs-starting column col-md-5 col-12 ">
+                                        {{ if .Params.docs.breadcrumbs | default true }}
+                                        <div class="d-md-flex justify-content-between align-items-center">
+                                            {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "breadcrumbs.html") . -}}
+                                        </div>
+                                        {{ end }}
+                    
                                         {{ range .Pages.ByWeight }}
                                         <div id="list-item" class="col-md-6 col-12 mt-4 pt-2">
                                             <a class="text-decoration-none text-reset">
@@ -100,6 +106,9 @@
                                             </a>
                                         </div><!--end col-->
                                         {{ end }}
+                                        <div>
+                                            {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "doc-nav.html") . -}}
+                                        </div>
                                     </div>
 
                                     <div class="code-server-frame col-12 col-md-7 my-4 my-md-0" >
