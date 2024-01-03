@@ -8,10 +8,10 @@
         <div class="col-sm-6 pt-2 doc-next">
 		<a>
 			<div class="card h-100 my-1">
-				<div class="card-body py-2">
-                    <p class="card-title fs-5 fw-semibold lh-base mb-0"><i class="material-icons align-middle">navigate_before</i> {{ .Title }}</p>
+				<div class="card-body d-flex align-items-center py-2">
+                    <p class="card-title d-flex align-items-center fs-5 fw-semibold lh-base mb-0"><i class="material-icons align-middle">navigate_before</i> {{ .Title }}</p>
 					{{ if eq .Site.Params.docs.navDesc true -}}
-                    	<p class="card-text ms-2">{{ .Description | truncate (.Site.Params.docs.navDescTrunc | default 40) }}</p>
+                    	<p class="card-text d-flex align-items-center">{{ .Description | truncate (.Site.Params.docs.navDescTrunc | default 40) }}</p>
 					{{ end }}
 				</div>
 			</div>
@@ -22,10 +22,10 @@
         <div class="col-sm-6 pt-2 doc-prev">
 		<a class="ms-auto">
 			<div class="card h-100 my-1 text-end">
-				<div class="card-body py-2">
-                    <p class="card-title fs-5 fw-semibold lh-base mb-0">{{ .Title }} <i class="material-icons align-middle">navigate_next</i></p>
+				<div class="card-body d-flex align-items-center py-2">
+                    <p class="card-title d-flex align-items-center fs-5 fw-semibold lh-base mb-0">{{ .Title }} <i class="material-icons">navigate_next</i></p>
 					{{ if eq .Site.Params.docs.navDesc true -}}
-                    	<p class="card-text me-2">{{ .Description | truncate (.Site.Params.docs.navDescTrunc | default 40) }}</p>
+                    	<p class="card-text d-flex align-items-center">{{ .Description | truncate (.Site.Params.docs.navDescTrunc | default 40) }}</p>
 					{{ end }}
 				</div>
 			</div>
