@@ -168,12 +168,9 @@
 
             var currentIndex = 0;
 
-            // (function () {
-            //     updateTab(0);
-            // })();
-
             function updateTab(index) {
                 currentIndex = index;
+                hideStartingTab();
                 setQueryParam('index', index)
                 tabs.forEach(function (tab) {
                 tab.classList.remove("active");
@@ -194,6 +191,7 @@
                 tab.addEventListener("click", function (e) {
                 e.preventDefault();
                 currentIndex = index;
+                setQueryParam("index", currentIndex);
                 updateTab(currentIndex);
                 });
             });
@@ -222,13 +220,25 @@
                 docsStarting.style.display = "block";
             }
 
-            var indexParam = getQueryParam("index");
+            window.addEventListener('load', () => {
+                var indexParam = getQueryParam("index");
             if (indexParam !== null) {
                 updateTab(+indexParam)
                 hideStartingTab();
             } else {
                 showStartingTab();
             }
+            })
+
+            window.addEventListener('reload', () => {
+                var indexParam = getQueryParam("index");
+            if (indexParam !== null) {
+                updateTab(+indexParam)
+                hideStartingTab();
+            } else {
+                showStartingTab();
+            }
+            })
 
             docsFeaturesCards.forEach(function(card, index) {
                 card.addEventListener('click', function(e) {
