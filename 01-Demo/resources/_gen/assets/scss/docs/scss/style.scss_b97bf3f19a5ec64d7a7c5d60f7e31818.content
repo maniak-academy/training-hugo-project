@@ -10280,6 +10280,10 @@ footer {
     border-color: var(--btn-primary-border) !important;
     color: var(--btn-primary-color) !important; }
 
+.btn-active {
+  color: var(--btn-default-hover-color);
+  transition: color .3s ease; }
+
 .btn-default {
   background-color: var(--btn-default-bg) !important;
   border: 1px solid var(--btn-default-border) !important;

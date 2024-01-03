@@ -56,6 +56,14 @@
                                                     {{ end }}
                                                 </h1>
                                             </div>
+
+                                            {{ range (where .Site.Pages "Section" "docs") }}
+                                            {{ range .Pages }}
+                                                {{ .Content }}
+                                            {{ end }}
+                                            {{ end }}
+
+
                                             {{ if site.Params.docs.descriptions | default false }}
                                                 <p class="lead mb-3">{{ $currentPage.Description | markdownify }}</p>
                                             {{ end }}
@@ -109,12 +117,35 @@
 
 
         <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var tabs = document.querySelectorAll('.nav-link');
+                var tabContents = document.querySelectorAll('.tab-pane');
+
+                tabs.forEach(function(tab, index) {
+                    tab.addEventListener('click', function() {
+                        tabs.forEach(function(t) {
+                            t.classList.remove('active');
+                        });
+                        tab.classList.add('active');
+
+                        tabContents.forEach(function(content) {
+                            content.classList.remove('show', 'active');
+                        });
+                        tabContents[index].classList.add('show', 'active');
+                    });
+                });
+            });
+
             window.addEventListener("DOMContentLoaded", () => {
-            document.getElementById("show-first").addEventListener("click", function () {
+
+            const vsCodeButton = document.getElementById("show-first");
+            const terminalButton = document.getElementById("show-second");
+
+            vsCodeButton.addEventListener("click", function () {
                 showIframe(1);
             });
 
-            document.getElementById("show-second").addEventListener("click", function () {
+            terminalButton.addEventListener("click", function () {
                 showIframe(2);
             });
 
@@ -123,11 +154,11 @@
                 var pageParam = params.get("page");
 
                 if (pageParam === "first") {
-                showIframe(1);
+                  showIframe(1);
                 } else if (pageParam === "second") {
-                showIframe(2);
+                  showIframe(2);
                 } else {
-                showIframe(1);
+                  showIframe(1);
                 }
             });
 
@@ -136,13 +167,17 @@
 
             function showIframe(iframeNumber) {
                 if (iframeNumber === 1) {
-                iframe1.style.display = "block";
-                iframe2.style.display = "none";
-                window.history.pushState({}, "", "?page=pageA");
+                  iframe1.style.display = "block";
+                  iframe2.style.display = "none";
+                  terminalButton.classList.remove('btn-active')
+                  vsCodeButton.classList.add('btn-active')
+                  window.history.pushState({}, "", "?page=pageA");
                 } else if (iframeNumber === 2) {
-                iframe1.style.display = "none";
-                iframe2.style.display = "block";
-                window.history.pushState({}, "", "?page=pageB");
+                  iframe1.style.display = "none";
+                  iframe2.style.display = "block";
+                  vsCodeButton.classList.remove('btn-active')
+                  terminalButton.classList.add('btn-active')
+                  window.history.pushState({}, "", "?page=pageB");
                 }
             }
             });
