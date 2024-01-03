@@ -24,49 +24,109 @@
                         {{ end }}
                             <div class="container-fluid">
                                 <div class="layout-spacing d-md-flex flex-md-row column column-gap-2">
-                                    <div class="column col-md-5 col-12 flex-xl-nowrap">
-                                        {{ $currentPage := . -}}
-                                        {{ if site.Params.docs.breadcrumbs | default true }}
-                                            <div class="d-md-flex justify-content-between align-items-center">
-                                                {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "breadcrumbs.html") . -}}
-                                            </div>
-                                        {{ end }}
-                                        {{ if site.Params.docs.toc | default true }}
-                                        <div class="docs-toc col-xl-6 my-2 {{ if .IsNode }}visually-hidden{{ else }}{{end}} {{ if and (ne .Params.toc false) (ne .TableOfContents "<nav id=\"TableOfContents\"></nav>") }}{{ else }}visually-hidden{{ end }} {{ if site.Params.docs.toc | default true }}{{ else }}visually-hidden{{ end }} d-xl-block">
-                                            {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "toc.html") . -}}
-                                        </div>
-                                        {{ end }}
-                                        {{ if site.Params.docs.tocMobile | default true }}
-                                        <div class="docs-toc-mobile {{ if .IsNode }}visually-hidden{{ else }}{{end}} {{ if and (ne .Params.toc false) (ne .TableOfContents "<nav id=\"TableOfContents\"></nav>") }}{{ else }}visually-hidden{{ end }} {{ if site.Params.docs.tocMobile | default true }}{{ else }}visually-hidden{{ end }} d-print-none d-xl-none">
-                                            <button id="toc-dropdown-btn" class="btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-offset="0,0" aria-expanded="false">
-                                                Table of Contents
-                                            </button>
-                                            {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "toc-mobile.html") . -}}
-                                        </div>
-                                        {{ end -}}
-                                        <div class="docs-content col-12 {{ if .IsNode }}{{ else }}{{ if site.Params.docs.toc | default true }}{{ if and (ne .Params.toc false) (ne .TableOfContents "<nav id=\"TableOfContents\"></nav>") }}col-xl-12{{else}}{{end}}{{ else }}{{ end }}{{ end }} mt-0">
-                                            <div class="mb-0 d-flex">
-                                                {{ if site.Params.docs.titleIcon | default false }}
-                                                <i class="material-icons title-icon me-2">{{- .Params.icon | default "article" }}</i>
-                                                {{ end }}
-                                                <h1 class="content-title mb-0">
-                                                    {{ $currentPage.Title }}
-                                                    {{ if .Draft }}
-                                                     <span class="badge bg-default fs-6 mb-1 align-middle">DRAFT</span>
-                                                    {{ end }}
-                                                </h1>
-                                            </div>
-                                            {{ if site.Params.docs.descriptions | default false }}
-                                                <p class="lead mb-3">{{ $currentPage.Description | markdownify }}</p>
+
+                                    <!-- output of all pages -->
+                                    <div class="tab-content-wrapper column col-md-5 col-12 flex-xl-nowrap">
+                                        {{ range (where .Site.Pages "Section" "docs") }}
+                                            {{ range $index, $page := .Pages }}
+
+                                            <div class="tab-content tab-content-{{ $index }}">
+
+                                            {{ if $page.Params.docs.breadcrumbs | default true }}
+                                                <div class="d-md-flex justify-content-between align-items-center">
+                                                    {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "breadcrumbs.html") . -}}
+                                                </div>
                                             {{ end }}
-                                            <div id="content" class="main-content" {{ if eq .Site.Params.docs.toc true -}}data-bs-spy="scroll" data-bs-root-margin="0px 0px -65%" data-bs-target="#toc-mobile"{{ end }}>
-                                                {{ block "main" . }}{{ end }}
+                                            {{ if $page.Params.docs.toc | default true }}
+                                            <div class="docs-toc col-xl-6 my-2 {{ if .IsNode }}visually-hidden{{ else }}{{end}} {{ if and (ne $page.Params.toc false) (ne $page.TableOfContents "<nav id=\"TableOfContents\"></nav>") }}{{ else }}visually-hidden{{ end }} {{ if $page.Params.docs.toc | default true }}{{ else }}visually-hidden{{ end }} d-xl-block">
+                                                {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "toc.html") . -}}
                                             </div>
-                                            <div>
-                                                {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "doc-nav.html") . -}}
+                                            {{ end }}
+                                            {{ if $page.Params.docs.tocMobile | default true }}
+                                            <div class="docs-toc-mobile {{ if .IsNode }}visually-hidden{{ else }}{{end}} {{ if and (ne $page.Params.toc false) (ne $page.TableOfContents "<nav id=\"TableOfContents\"></nav>") }}{{ else }}visually-hidden{{ end }} {{ if $page.Params.docs.tocMobile | default true }}{{ else }}visually-hidden{{ end }} d-print-none d-xl-none">
+                                                <button id="toc-dropdown-btn" class="btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-offset="0,0" aria-expanded="false">
+                                                    Table of Contents
+                                                </button>
+                                                {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "toc-mobile.html") . -}}
                                             </div>
+                                            {{ end -}}
+
+                                            <div class="docs-content col-12 {{ if .IsNode }}{{ else }}{{ if $page.Params.docs.toc | default true }}{{ if and (ne $page.Params.toc false) (ne $page.TableOfContents "<nav id=\"TableOfContents\"></nav>") }}col-xl-12{{else}}{{end}}{{ else }}{{ end }}{{ end }} mt-0">
+                                                <div class="mb-0 d-flex">
+                                                    {{ if $page.Params.docs.titleIcon | default false }}
+                                                    <i class="material-icons title-icon me-2">{{- $page.Params.icon | default "article" }}</i>
+                                                    {{ end }}
+                                                    <h1 class="content-title mb-0">
+                                                        {{ $page.Title }}
+                                                        {{ if $page.Draft }}
+                                                         <span class="badge bg-default fs-6 mb-1 align-middle">DRAFT</span>
+                                                        {{ end }}
+                                                    </h1>
+                                            </div>
+                                                {{ if $page.Params.docs.descriptions | default false }}
+                                                    <p class="lead mb-3">{{ $page.Description | markdownify }}</p>
+                                                {{ end }}
+                                                <div id="content" class="main-content" {{ if eq .Site.Params.docs.toc true -}}data-bs-spy="scroll" data-bs-root-margin="0px 0px -65%" data-bs-target="#toc-mobile"{{ end }}>
+                                                    {{ block "main" . }}
+                                                    {{ end }}
+                                                    {{ $page.Content }}
+                                                </div>
+                                                <div>
+                                                    {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "doc-nav.html") . -}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{ end }}
+                                        {{ end }}
+                                    </div>
+
+                                    <div class="docs-starting col-md-5 col-12 ">
+                                        {{ if .Params.docs.breadcrumbs | default true }}
+                                        <div class="d-md-flex justify-content-between align-items-center">
+                                            {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "breadcrumbs.html") . -}}
+                                        </div>
+                                        {{ end }}
+                                        <div class="mb-0 d-flex">
+                                            {{ if .Params.docs.titleIcon | default true }}
+                                            <i class="material-icons title-icon me-2">{{- .Params.icon | default "article" }}</i>
+                                            {{ end }}
+                                            <h1 class="content-title mb-0">
+                                                {{ .Title }}
+                                                {{ if .Draft }}
+                                                 <span class="badge bg-default fs-6 mb-1 align-middle">DRAFT</span>
+                                                {{ end }}
+                                            </h1>
+                                        </div>
+
+                    
+                                        <div class="d-flex flex-wrap mt-4">
+                                            {{ range .Pages.ByWeight }}
+                                            <div id="list-item" class="col-md-6 col-12 p-2">
+                                                <a class="text-decoration-none text-reset">
+                                                    <div class="card h-100 features feature-full-bg rounded p-4 position-relative overflow-hidden border-1">
+                                                        <span class="icon-color d-flex my-3">
+                                                            <i class="material-icons align-middle">{{- .Params.icon | default "article" }}</i>
+                                                            {{ if .Draft }}<span class="badge bg-default ms-2 fs-6 align-middle">DRAFT</span>{{ end }}
+                                                            {{ if .IsSection }}<i class="material-icons icon-faint align-middle ms-auto" title="Directory">folder</i>{{ end }}
+                                                        </span>
+                                                        <div class="card-body p-0 content">
+                                                            <p class="fs-5 fw-semibold card-title mb-1">{{ .Title }}</p>
+                                                            <p class="para card-text mb-0">{{ .Description | truncate (.Site.Params.docs.listDescTrunc | default 100) | markdownify }}</p>
+                                                        </div>
+                                                        <!-- <div class="position-absolute top-0 end-0">
+                                                            <i class="material-icons opacity-05">{{- .Params.icon }}</i>
+                                                        </div> -->
+                                                    </div>
+                                                </a>
+                                            </div><!--end col-->
+                                            {{ end }}
+                                        </div>
+
+                                        <div>
+                                            {{- partial (printf "%s/%s" ($.Scratch.Get "pathName") "doc-nav.html") . -}}
                                         </div>
                                     </div>
+
                                     <div class="code-server-frame col-12 col-md-7 my-4 my-md-0" >
                                         <iframe id="first-iframe" src="http://localhost:8080" width="100%" height="1000px"></iframe>
                                         <iframe id="second-iframe" src="http://localhost:7681" width="100%" height="1000px"></iframe>
@@ -109,12 +169,141 @@
 
 
         <script>
+                function getQueryParam(key) {
+                var urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(key);
+            }
+
+            function setQueryParam(key, value) {
+                var urlParams = new URLSearchParams(window.location.search);
+                urlParams.set(key, value);
+                window.history.replaceState({}, '', window.location.pathname + '?' + urlParams);
+            }
+
+            function deleteQueryParam(key) {
+                var url = new URL(window.location.href);
+                url.searchParams.delete(key);
+                window.history.replaceState({}, null, url.href);
+            }
+            
+            window.addEventListener("DOMContentLoaded", function () {
+
+            var tabs = document.querySelectorAll(".sidebar-root-link");
+            var tabContents = document.querySelectorAll(".tab-content");
+            var sidebarLi = document.querySelectorAll(".sidebar-menu li");
+            var docNextBtns = document.querySelectorAll(".doc-next");
+            var docPrevBtns = document.querySelectorAll(".doc-prev");
+            var docsStarting = document.querySelector(".docs-starting");
+            var docsFeaturesCards = document.querySelectorAll('.features');
+            var tabContentWrapper = document.querySelector('.tab-content-wrapper');
+            var homeBreadcrumbBtns = document.querySelectorAll('.home-breadcrumb');
+            
+
+            var currentIndex;
+
+            function updateTab(index) {
+                currentIndex = index;
+                hideStartingTab();
+                setQueryParam('index', index)
+                tabs.forEach(function (tab) {
+                tab.classList.remove("active");
+                });
+                tabs[index].classList.add("active");
+                sidebarLi.forEach(function (li) {
+                li.classList.remove("current");
+                });
+                sidebarLi[index].classList.add("current");
+
+                tabContents.forEach(function (content) {
+                content.classList.remove("active");
+                });
+                tabContents[index].classList.add("active");
+            }
+
+            tabs.forEach(function (tab, index) {
+                tab.addEventListener("click", function (e) {
+                e.preventDefault();
+                currentIndex = index;
+                setQueryParam("index", currentIndex);
+                updateTab(currentIndex);
+                });
+            });
+
+            docPrevBtns.forEach(function (docPrev) {
+                docPrev.addEventListener("click", function (e) {
+                index = currentIndex + 1;
+                updateTab(index);
+                });
+            });
+
+            docNextBtns.forEach(function (docNext) {
+                docNext.addEventListener("click", function (e) {
+                index = currentIndex - 1;
+                updateTab(index);
+                });
+            });
+
+            homeBreadcrumbBtns.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                console.log('here')
+                deleteQueryParam('index')
+                sidebarLi.forEach(li => li.classList.remove('current'))
+                tabs.forEach(tab => tab.classList.remove('active'))
+                showStartingTab()
+            })
+            })
+
+            function hideStartingTab() {
+                tabContentWrapper.style.display = 'block'
+                docsStarting.style.display = "none";
+            }
+
+            function showStartingTab() {
+                tabContentWrapper.style.display = 'none';
+                docsStarting.style.display = "block";
+            }
+
+            window.addEventListener('load', () => {
+                var indexParam = getQueryParam("index");
+                if (indexParam !== null) {
+                    updateTab(+indexParam)
+                    hideStartingTab();
+                } else {
+                    showStartingTab();
+                }
+            })
+
+            window.addEventListener('reload', () => {
+                var indexParam = getQueryParam("index");
+            if (indexParam !== null) {
+                updateTab(+indexParam)
+                hideStartingTab();
+            } else {
+                showStartingTab();
+            }
+            })
+
+            docsFeaturesCards.forEach(function(card, index) {
+                card.addEventListener('click', function(e) {
+                    setQueryParam("index", index);
+                    currentIndex = index;
+                    updateTab(currentIndex);
+                    hideStartingTab();
+                });
+            });
+        });       
+    
+
             window.addEventListener("DOMContentLoaded", () => {
-            document.getElementById("show-first").addEventListener("click", function () {
+
+            const vsCodeButton = document.getElementById("show-first");
+            const terminalButton = document.getElementById("show-second");
+
+            vsCodeButton.addEventListener("click", function () {
                 showIframe(1);
             });
 
-            document.getElementById("show-second").addEventListener("click", function () {
+            terminalButton.addEventListener("click", function () {
                 showIframe(2);
             });
 
@@ -123,11 +312,11 @@
                 var pageParam = params.get("page");
 
                 if (pageParam === "first") {
-                showIframe(1);
+                  showIframe(1);
                 } else if (pageParam === "second") {
-                showIframe(2);
+                  showIframe(2);
                 } else {
-                showIframe(1);
+                  showIframe(1);
                 }
             });
 
@@ -136,13 +325,17 @@
 
             function showIframe(iframeNumber) {
                 if (iframeNumber === 1) {
-                iframe1.style.display = "block";
-                iframe2.style.display = "none";
-                window.history.pushState({}, "", "?page=pageA");
+                  iframe1.style.display = "block";
+                  iframe2.style.display = "none";
+                  terminalButton.classList.remove('btn-active')
+                  vsCodeButton.classList.add('btn-active')
+                  setQueryParam("page", "pageA");
                 } else if (iframeNumber === 2) {
-                iframe1.style.display = "none";
-                iframe2.style.display = "block";
-                window.history.pushState({}, "", "?page=pageB");
+                  iframe1.style.display = "none";
+                  iframe2.style.display = "block";
+                  vsCodeButton.classList.remove('btn-active')
+                  terminalButton.classList.add('btn-active')
+                setQueryParam("page", "pageA");
                 }
             }
             });

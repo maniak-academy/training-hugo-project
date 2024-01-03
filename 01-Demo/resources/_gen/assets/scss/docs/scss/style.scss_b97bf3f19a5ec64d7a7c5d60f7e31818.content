@@ -10280,6 +10280,10 @@ footer {
     border-color: var(--btn-primary-border) !important;
     color: var(--btn-primary-color) !important; }
 
+.btn-active {
+  color: var(--btn-default-hover-color);
+  transition: color .3s ease; }
+
 .btn-default {
   background-color: var(--btn-default-bg) !important;
   border: 1px solid var(--btn-default-border) !important;
@@ -10865,6 +10869,11 @@ table td:last-child, table th:last-child {
       font-size: 0.975rem;
       line-height: 2;
       color: var(--text-default); }
+
+.tab-content {
+  display: none; }
+  .tab-content.active {
+    display: block; }
 
 :root {
   --feature-icon-color: var(--primary);
