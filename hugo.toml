@@ -37,10 +37,8 @@ title = 'My New Hugo Site'
 
     [params.social]
         twitter = ""       # YOUR_TWITTER_ID
-        # instagram = "colinwilson"     # YOUR_INSTAGRAM_ID
-        # rss = true                    # show rss icon with link
 [params.docs] # Parameters for the /docs 'template'
-        title           = "Lotus Docs Example Site"           # default html title for documentation pages/sections
+        title           = "Project"           # default html title for documentation pages/sections
 
         # pathName        = "docs"                            # path name for documentation site | default "docs"
 
@@ -53,7 +51,6 @@ title = 'My New Hugo Site'
         prismTheme      = "solarized-light"                           # (optional) - Set theme for PrismJS. Options include: lotusdocs (default), solarized-light, twilight, lucario
 
         # gitinfo
-        repoURL         = "https://github.com/colinwilson/lotusdocs.dev"  # Git repository URL for your site [support for GitHub, GitLab, and BitBucket]
         repoBranch      = "release"
         editPage        = true                                # enable 'Edit this page' feature - default false
         lastMod         = true                                # enable 'Last modified' date on pages - default false

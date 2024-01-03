@@ -13,15 +13,15 @@ hero:
       mobile: "gradient-mobile.webp"
 
   badge:
-    text: v0.1.0
-    color: primary # primary, secondary, success, danger, warning, info, light, dark
+    text: v0.1.2
+    color: danger # primary, secondary, success, danger, warning, info, light, dark
     pill: false # boolean
     soft: true # boolean
 
   titleLogo:
     path: "images/logos"
     filename: "title_logo.png"
-    alt: "Lotus Docs Logo"
+    alt: "Project Xademy"
     height: 80px
 
   title: "Project Xademy" 
@@ -30,14 +30,14 @@ hero:
   image:
     path: "images" # path to image under configured assets directory. default 'images'
     filename: "mainpage.png" # filename of your hero image (including file extension)
-    alt: "Lotus Docs Screenshot" # Optional but recommended
+    alt: "Screenshot" # Optional but recommended
     boxShadow: true # default 'false' (excludes .svg images)
     rounded: true # round the image corners? default 'false' (excludes .svg images)
 
-  ctaButton:
-    icon: rocket_launch
-    btnText: "Get Started"
-    url: "http://localhost:1313/docs/"
+  # ctaButton:
+  #   icon: rocket_launch
+  #   btnText: "Get Started"
+  #   url: "http://localhost:1313/docs/"
 
  # cta2Button:
  #   icon: construction
