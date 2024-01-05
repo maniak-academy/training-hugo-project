@@ -1,6 +1,6 @@
 ---
 weight: 30
-title: "Final Step"
+title: "Ansible Setup"
 description: ""
 icon: "article"
 date: "2023-12-29T20:19:37Z"
