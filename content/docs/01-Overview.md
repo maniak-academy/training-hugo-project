@@ -1,17 +1,17 @@
 ---
 weight: 1
-title: "01-Overview"
+title: "Overview"
 description: ""
 icon: "article"
 date: "2023-12-22T14:06:28-05:00"
-lastmod: "2023-12-22T14:06:28-05:00"
+lastmod: "2023-13-22T14:06:28-05:00"
 draft: false
 toc: true
 ---
 
 ## Managing Fortinet With Ansible and Terraform in AWS - A Comprehensive Introduction
 
-![alternative text](http://localhost:1313/docs/overview.png)
+<!-- ![alternative text](http://localhost:1313/docs/overview.png) -->
 
 Welcome to our exciting course on building a Fortinet Ansible Lab in Amazon Web Services (AWS)! In this comprehensive introduction, we will explore the intricacies of using Ansible with Fortinet, an industry-leading cybersecurity solution, and how it can be seamlessly integrated into the AWS cloud environment using Ansible and Terraform.
 
