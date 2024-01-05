@@ -44,3 +44,5 @@ Now you can go to http://localhost:1313 or http://localhost:7681 and you are set
 
 Add content using markup language in the content/docs folder.
 
+hugo new docs/Start/_index.md
+hugo new docs/Start/doc-three.md
