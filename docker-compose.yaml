@@ -15,7 +15,7 @@ services:
       - "8080:8080"
       
   terminal-server:
-    image: sebbycorp/terminal-server:arm
+    image: sebbycorp/terminal-server:latest
     ports:
       - "7681:7681"
     environment:
